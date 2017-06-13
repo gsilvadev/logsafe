@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +33,8 @@ public class Log implements Serializable {
 	private Date dataHora;
 	private String categoria;
 	private Map<String, String> registro;
-	
-//	private Usuario usuarioResponsavel;
+
+	private Usuario usuarioResponsavel;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +48,7 @@ public class Log implements Serializable {
 	}
 
 	@Column(name = "produto")
-	@NotEmpty(message="field.required")
+	@NotEmpty(message = "field.required")
 	public String getProduto() {
 		return produto;
 	}
@@ -53,7 +58,7 @@ public class Log implements Serializable {
 	}
 
 	@Column(name = "cliente")
-	@NotEmpty(message="field.required")
+	@NotEmpty(message = "field.required")
 	public String getCliente() {
 		return cliente;
 	}
@@ -73,7 +78,7 @@ public class Log implements Serializable {
 	}
 
 	@Column(name = "categoria")
-	@NotEmpty(message="field.required")
+	@NotEmpty(message = "field.required")
 	public String getCategoria() {
 		return categoria;
 	}
@@ -83,12 +88,28 @@ public class Log implements Serializable {
 	}
 
 	@ElementCollection
+	@CollectionTable(name = "log_registro", 
+		joinColumns = { 
+			@JoinColumn(name = "id_log_registro", 
+				referencedColumnName = "id_log") },
+		
+		foreignKey = @ForeignKey(name = "FK_REGISTRO_LOG"))
 	public Map<String, String> getRegistro() {
 		return registro;
 	}
 
 	public void setRegistro(Map<String, String> registro) {
 		this.registro = registro;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "login_usuario", referencedColumnName = "login", foreignKey = @ForeignKey(name = "FK_LOG_USUARIO", value = ConstraintMode.CONSTRAINT))
+	public Usuario getUsuarioResponsavel() {
+		return usuarioResponsavel;
+	}
+
+	public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
+		this.usuarioResponsavel = usuarioResponsavel;
 	}
 
 	@Override
