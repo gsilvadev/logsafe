@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -14,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +32,7 @@ public class Log implements Serializable {
 	private String categoria;
 	private Map<String, String> registro;
 
-	private Usuario usuarioResponsavel;
+	private String usuarioResponsavel;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +46,7 @@ public class Log implements Serializable {
 	}
 
 	@Column(name = "produto")
-	@NotEmpty(message = "field.required")
+	@NotEmpty(message = "O campo produto é obrigatório.")
 	public String getProduto() {
 		return produto;
 	}
@@ -58,7 +56,7 @@ public class Log implements Serializable {
 	}
 
 	@Column(name = "cliente")
-	@NotEmpty(message = "field.required")
+	@NotEmpty(message = "O campo cliente é obrigatório.")
 	public String getCliente() {
 		return cliente;
 	}
@@ -78,7 +76,7 @@ public class Log implements Serializable {
 	}
 
 	@Column(name = "categoria")
-	@NotEmpty(message = "field.required")
+	@NotEmpty(message = "O campo categoria é obrigatório.")
 	public String getCategoria() {
 		return categoria;
 	}
@@ -102,13 +100,11 @@ public class Log implements Serializable {
 		this.registro = registro;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "login_usuario", referencedColumnName = "login", foreignKey = @ForeignKey(name = "FK_LOG_USUARIO", value = ConstraintMode.CONSTRAINT))
-	public Usuario getUsuarioResponsavel() {
+	public String getUsuarioResponsavel() {
 		return usuarioResponsavel;
 	}
 
-	public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
+	public void setUsuarioResponsavel(String usuarioResponsavel) {
 		this.usuarioResponsavel = usuarioResponsavel;
 	}
 

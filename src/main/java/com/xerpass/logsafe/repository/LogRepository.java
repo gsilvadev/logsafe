@@ -1,9 +1,9 @@
 package com.xerpass.logsafe.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.xerpass.logsafe.models.Log;
 
-public interface LogRepository extends CrudRepository<Log, Integer>{
+public interface LogRepository extends PagingAndSortingRepository<Log, Integer>{
 
 }
