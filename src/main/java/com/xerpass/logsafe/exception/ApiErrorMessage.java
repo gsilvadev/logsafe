@@ -30,6 +30,6 @@ public class ApiErrorMessage {
 	
 	@Override
 	public String toString() {
-		return "Título: " + this.title + "\nMensagem: " + this.message + "\n";
+		return "Título: " + this.title + " - Mensagem: " + this.message;
 	}
 }
