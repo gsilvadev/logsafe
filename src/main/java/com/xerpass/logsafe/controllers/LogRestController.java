@@ -59,10 +59,11 @@ public class LogRestController {
 	public Iterable<Log> listar(@RequestParam(name = "produto", required = false) String produto,
 			@RequestParam(name = "cliente", required = false) String cliente,
 			@RequestParam(name = "categoria", required = false) String categoria,
-			@RequestParam(name = "from", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
-			@RequestParam(name = "to", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
+			@RequestParam(name = "from", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataInicio,
+			@RequestParam(name = "to", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataFim,
+			@RequestParam(name = "usuario", required = false) String usuario) {
 		
 		
-		return this.service.listarTodos();
+		return this.service.consultaParametrizada(produto, categoria, cliente, dataInicio, dataFim, usuario);
 	}
 }
