@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xerpass.logsafe.Utils.JwtUtil;
 import com.xerpass.logsafe.exception.ApiErrorException;
 import com.xerpass.logsafe.models.Log;
 import com.xerpass.logsafe.services.LogService;
+import com.xerpass.logsafe.utils.JwtUtil;
 import com.xerpass.logsafe.validators.LogValidator;
 
 @RestController
-@RequestMapping("/api/logs")
+@RequestMapping("/api/private/logs")
 public class LogRestController {
 
 	@Autowired

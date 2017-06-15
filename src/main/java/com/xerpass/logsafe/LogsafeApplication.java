@@ -14,7 +14,7 @@ public class LogsafeApplication {
 	public FilterRegistrationBean filtroJwt(){
 		FilterRegistrationBean frb = new FilterRegistrationBean();
 		frb.setFilter(new AuthFilter());
-		frb.addUrlPatterns("/api/*");
+		frb.addUrlPatterns("/api/private/*");
 		
 		return frb;
 	}

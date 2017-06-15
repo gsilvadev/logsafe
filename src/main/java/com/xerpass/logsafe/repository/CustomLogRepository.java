@@ -30,7 +30,7 @@ public class CustomLogRepository {
 	private Map<String, String> queryFragments;
 
 	public CustomLogRepository() {
-		this.consulta = "select distinct(log) from Log log join fetch log.registro registro ";
+		this.consulta = "select distinct(log) from Log log left join fetch log.registros registro ";
 		this.queryFragments = new HashMap<>();
 
 		this.queryFragments.put(PRODUTO, " log.produto = :" + PRODUTO);

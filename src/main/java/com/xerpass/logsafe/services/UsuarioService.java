@@ -1,13 +1,13 @@
 package com.xerpass.logsafe.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xerpass.logsafe.exception.ApiErrorException;
 import com.xerpass.logsafe.models.Usuario;
 import com.xerpass.logsafe.repository.UsuarioRepository;
+import com.xerpass.logsafe.utils.Md5Util;
 
 @Service
 public class UsuarioService {
@@ -30,8 +30,13 @@ public class UsuarioService {
 		if(this.repository.countByLogin("admin") > 0)
 			return;
 		
-		Usuario usuario = new Usuario("admin",new BCryptPasswordEncoder().encode("admin"));
+		Usuario usuario = new Usuario("admin", Md5Util.encriptar("admin"));
 		
+		this.repository.save(usuario);
+	}
+
+	@Transactional
+	public void salvar(Usuario usuario) {
 		this.repository.save(usuario);
 	}
 }

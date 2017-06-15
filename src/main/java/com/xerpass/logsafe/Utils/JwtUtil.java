@@ -1,4 +1,4 @@
-package com.xerpass.logsafe.Utils;
+package com.xerpass.logsafe.utils;
 
 import static org.springframework.util.StringUtils.isEmpty;
 

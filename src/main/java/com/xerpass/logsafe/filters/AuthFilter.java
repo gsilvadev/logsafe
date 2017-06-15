@@ -14,11 +14,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.xerpass.logsafe.Utils.JwtUtil;
 import com.xerpass.logsafe.exception.ApiErrorException;
+import com.xerpass.logsafe.utils.JwtUtil;
 
 public class AuthFilter extends GenericFilterBean  {
-
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -28,10 +27,10 @@ public class AuthFilter extends GenericFilterBean  {
 			
 			JWTVerifier verifier = JWT.require(Algorithm.HMAC512("secreto")).withIssuer("auth0").build();
 			verifier.verify(token);
+			
 		} catch(ApiErrorException | JWTVerificationException ex){
-			((HttpServletResponse)response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			((HttpServletResponse)response).sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
 			return;
-//			throw new ApiErrorException("Não autorizado", "Token inexistente ou inválido");
 		}
 		
 		chain.doFilter(request, response);

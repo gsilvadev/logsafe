@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +21,10 @@ import com.xerpass.logsafe.services.CategoriaService;
 import com.xerpass.logsafe.services.ClienteService;
 import com.xerpass.logsafe.services.ProdutoService;
 import com.xerpass.logsafe.services.UsuarioService;
+import com.xerpass.logsafe.utils.Md5Util;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 	
 	@Autowired
@@ -55,7 +55,7 @@ public class AuthController {
 		
 		Usuario usuarioEncontrado = this.usuarioService.getUsuarioByLogin(login);
 		
-		if(!new BCryptPasswordEncoder().matches(senha, usuarioEncontrado.getPassword())){
+		if(!Md5Util.encriptar(senha).equals(usuarioEncontrado.getPassword())){
 			throw new ApiErrorException("Login ou senha incorretos", "Login e senha não conferem.");
 		}
 		

@@ -30,7 +30,7 @@ public class Log implements Serializable {
 	private String cliente;
 	private Date dataHora;
 	private String categoria;
-	private Map<String, String> registro;
+	private Map<String, String> registros;
 
 	private String usuarioResponsavel;
 
@@ -86,18 +86,18 @@ public class Log implements Serializable {
 	}
 
 	@ElementCollection
-	@CollectionTable(name = "log_registro", 
+	@CollectionTable(name = "log_registros", 
 		joinColumns = { 
-			@JoinColumn(name = "id_log_registro", 
+			@JoinColumn(name = "id_log_registros", 
 				referencedColumnName = "id_log") },
 		
-		foreignKey = @ForeignKey(name = "FK_REGISTRO_LOG"))
-	public Map<String, String> getRegistro() {
-		return registro;
+		foreignKey = @ForeignKey(name = "FK_REGISTROS_LOG"))
+	public Map<String, String> getRegistros() {
+		return registros;
 	}
 
-	public void setRegistro(Map<String, String> registro) {
-		this.registro = registro;
+	public void setRegistros(Map<String, String> registros) {
+		this.registros = registros;
 	}
 
 	public String getUsuarioResponsavel() {
